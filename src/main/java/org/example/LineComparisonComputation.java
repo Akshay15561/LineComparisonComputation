@@ -40,6 +40,15 @@ class Line {
         double y2 = endPoint.getY();
         return Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2));
     }
+
+    // Overriding the equals method to compare two lines based on length
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true; // Same object reference
+        if (obj == null || getClass() != obj.getClass()) return false; // Null or different class
+        Line otherLine = (Line) obj;
+        return Double.compare(this.calculateLength(), otherLine.calculateLength()) == 0;
+    }
 }
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
@@ -47,19 +56,31 @@ public class LineComparisonComputation {
     public static void main(String[] args) {
         //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
         // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Welcome to Line Comparison Computation ");
+        System.out.printf("Welcome to Line Comparison Computation \n");
 
-        // Define points
-        Point point1 = new Point(2, 3);
-        Point point2 = new Point(5, 7);
+        // Define points for the first line
+        Point point1A = new Point(2, 3);
+        Point point1B = new Point(5, 7);
 
-        // Create a line using the points
-        Line line = new Line(point1, point2);
+        // Define points for the second line
+        Point point2A = new Point(1, 1);
+        Point point2B = new Point(4, 5);
 
-        // Calculate and display the length of the line
-        double length = line.calculateLength();
-        System.out.printf("\nThe length of the line between points (%.1f, %.1f) and (%.1f, %.1f) is: %.2f%n",
-                point1.getX(), point1.getY(), point2.getX(), point2.getY(), length);
+        // Create lines
+        Line line1 = new Line(point1A, point1B);
+        Line line2 = new Line(point2A, point2B);
+
+
+        // Calculate lengths and display
+        System.out.printf("Length of Line 1: %.2f%n", line1.calculateLength());
+        System.out.printf("Length of Line 2: %.2f%n", line2.calculateLength());
+
+        // Check equality of the two lines
+        if (line1.equals(line2)) {
+            System.out.println("Line 1 and Line 2 are equal in length.");
+        } else {
+            System.out.println("Line 1 and Line 2 are not equal in length.");
+        }
     }
 
 
