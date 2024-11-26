@@ -22,7 +22,7 @@ class Point {
 }
 
 // Class to represent a line between two points
-class Line {
+class Line implements Comparable<Line> {
     private Point startPoint;
     private Point endPoint;
 
@@ -41,13 +41,9 @@ class Line {
         return Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2));
     }
 
-    // Overriding the equals method to compare two lines based on length
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true; // Same object reference
-        if (obj == null || getClass() != obj.getClass()) return false; // Null or different class
-        Line otherLine = (Line) obj;
-        return Double.compare(this.calculateLength(), otherLine.calculateLength()) == 0;
+    public int compareTo(Line otherLine) {
+        return Double.compare(this.calculateLength(), otherLine.calculateLength());
     }
 }
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
@@ -59,7 +55,7 @@ public class LineComparisonComputation {
         System.out.printf("Welcome to Line Comparison Computation \n");
 
         // Define points for the first line
-        Point point1A = new Point(2, 3);
+        Point point1A = new Point(7, 3);
         Point point1B = new Point(5, 7);
 
         // Define points for the second line
@@ -75,11 +71,16 @@ public class LineComparisonComputation {
         System.out.printf("Length of Line 1: %.2f%n", line1.calculateLength());
         System.out.printf("Length of Line 2: %.2f%n", line2.calculateLength());
 
-        // Check equality of the two lines
-        if (line1.equals(line2)) {
+        // Compare the two lines
+        int comparisonResult = line1.compareTo(line2);
+
+        // Display the comparison result
+        if (comparisonResult == 0) {
             System.out.println("Line 1 and Line 2 are equal in length.");
+        } else if (comparisonResult > 0) {
+            System.out.println("Line 1 is longer than Line 2.");
         } else {
-            System.out.println("Line 1 and Line 2 are not equal in length.");
+            System.out.println("Line 1 is shorter than Line 2.");
         }
     }
 
