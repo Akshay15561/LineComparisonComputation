@@ -19,6 +19,22 @@ class Point {
     public double getY() {
         return y;
     }
+
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+
+        Point point = (Point) obj;
+        return Double.compare(point.x, x) == 0 && Double.compare(point.y, y) == 0;
+    }
+
+    @Override
+    public String toString() {
+        return "(" + x + ", " + y + ")";
+    }
+
 }
 
 // Class to represent a line between two points
@@ -45,7 +61,21 @@ class Line implements Comparable<Line> {
     public int compareTo(Line otherLine) {
         return Double.compare(this.calculateLength(), otherLine.calculateLength());
     }
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+
+        Line line = (Line) obj;
+        return startPoint.equals(line.startPoint) && endPoint.equals(line.endPoint);
+    }
+
+    @Override
+    public String toString() {
+        return "Line[startPoint=" + startPoint + ", endPoint=" + endPoint + "]";
+    }
 }
+
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class LineComparisonComputation {
@@ -82,8 +112,11 @@ public class LineComparisonComputation {
         } else {
             System.out.println("Line 1 is shorter than Line 2.");
         }
+        System.out.println("Are the two lines equal (same points)? " + line1.equals(line2));
     }
 
 
 
     }
+
+
